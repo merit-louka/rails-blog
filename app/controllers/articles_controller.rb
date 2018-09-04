@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  http_basic_authenticate_with name: "merit", password: "secret", except: [:index, :show]
-
+#  http_basic_authenticate_with name: "merit", password: "secret", except: [:index, :show]
+ 
   def index
     @articles = Article.all
   end
@@ -11,15 +11,12 @@ class ArticlesController < ApplicationController
   end
   def create
     @article = Article.new(article_params)
- 
-    
+    Resque.enqueue(Sleeper, 5)
     if @article.save
-        redirect_to @article
+      redirect_to @article
     else
-        render 'new'
+      render 'new'
     end
-    
-  	# render plain: params[:article].inspect
   end
 
   def edit
@@ -41,8 +38,9 @@ class ArticlesController < ApplicationController
 	 
 	  redirect_to articles_path
   end
+
   private
-  def article_params
-    params.require(:article).permit(:title, :text)
-  end
+    def article_params
+      params.require(:article).permit(:title, :text)
+    end
 end
