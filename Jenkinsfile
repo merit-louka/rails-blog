@@ -6,7 +6,7 @@ pipeline {
             steps {
               sh 'printenv'
               println env.ghprbSourceBranch
-               git branch: env.ghprbSourceBranch , credentialsId: '86445171-4b56-490b-a1ab-eabc00e4e944', url: 'https://github.com/merit-louka/rails-blog/'
+               git branch: env.CHANGE_BRANCH , credentialsId: '86445171-4b56-490b-a1ab-eabc00e4e944', url: 'https://github.com/merit-louka/rails-blog/'
             }  
          }
 
