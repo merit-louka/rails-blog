@@ -38,6 +38,11 @@ pipeline {
                 steps {
                     setBuildStatus("Build complete", "SUCCESS");
                 }
+                 post{
+                   always{
+                    setBuildStatus("Build complete", "SUCCESS");
+                   }
+                }
             }
             
         }
